@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scrapet - AI Code Auditor</title>
+    <title>Scrapet - The Future of Code Auditing</title>
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <!-- Custom Styles -->
@@ -20,54 +20,41 @@
       }
       body {
         font-family: "Inter", sans-serif;
-        background-color: #111827; /* Dark background */
-        color: #f9fafb; /* Light text */
+        background-color: #111827;
+        color: #f9fafb;
+        background-image: radial-gradient(#4b5563 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
       }
-      /* Custom styles for syntax highlighting in the results */
-      .result-key {
-        color: #93c5fd;
-      } /* Light Blue */
-      .result-string {
-        color: #a7f3d0;
-      } /* Light Green */
-      .result-boolean {
-        color: #fbbf24;
-      } /* Amber */
-      .result-number {
-        color: #f9a8d4;
-      } /* Pink */
-      .loader {
-        border: 4px solid #4b5563; /* Gray */
-        border-top: 4px solid #3b82f6; /* Blue */
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
+      .hero-gradient-text {
+        background: linear-gradient(to right, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+      .feature-card {
+        background-color: rgba(31, 41, 55, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(75, 85, 99, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+          0 4px 6px -2px rgba(0, 0, 0, 0.15);
       }
     </style>
   </head>
   <body class="antialiased">
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (As you provided, with updated routes) -->
     <nav
       class="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-lg border-b border-gray-700/50"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-          <!-- Brand on the left -->
           <div class="flex items-center">
-            <a href="#" class="text-2xl font-bold text-white tracking-wider"
-              >scrapet</a
+            <a href="/" class="text-2xl font-bold text-white tracking-wider"
+              >SCRAPET</a
             >
           </div>
-          <!-- Links on the right (for desktop) -->
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <a
@@ -76,18 +63,17 @@
                 >Prompt Scrapping</a
               >
               <a
-                href="#url-scraper-section"
+                href="/url"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >URL Scraping</a
               >
               <a
-                href="#code-detector-section"
+                href="/detector"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >AI Code Detection</a
               >
             </div>
           </div>
-          <!-- Mobile menu button -->
           <div class="-mr-2 flex md:hidden">
             <button
               id="mobile-menu-button"
@@ -95,7 +81,6 @@
               class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
             >
               <span class="sr-only">Open main menu</span>
-              <!-- Hamburger icon -->
               <svg
                 class="block h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +96,6 @@
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              <!-- Close icon -->
               <svg
                 class="hidden h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
@@ -131,27 +115,223 @@
           </div>
         </div>
       </div>
-      <!-- Mobile menu, show/hide based on menu state. -->
       <div class="md:hidden hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <a
             href="/prompt"
-            id="promptscrapping"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >Prompt Scrapping</a
           >
           <a
-            href="#url-scraper-section"
+            href="/url"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >URL Scraping</a
           >
           <a
-            href="#code-detector-section"
+            href="/detector"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >AI Code Detection</a
           >
         </div>
       </div>
     </nav>
+
+    <!-- Main Content -->
+    <div class="relative overflow-hidden">
+      <!-- Hero Section -->
+      <section class="text-center py-20 sm:py-32">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1
+            class="text-5xl md:text-7xl font-extrabold tracking-tight text-white"
+          >
+            The Future of <span class="hero-gradient-text">Code Integrity</span>
+          </h1>
+          <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+            Scrapet leverages lightning-fast AI to analyze code from any source,
+            instantly detecting AI-generated patterns and ensuring academic and
+            professional honesty.
+          </p>
+          <div class="mt-10">
+            <a
+              href="/prompt"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-lg"
+            >
+              Start Analyzing
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="py-20 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <h2
+              class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+            >
+              One Tool, Every Use Case
+            </h2>
+            <p class="mt-4 text-lg text-gray-400">
+              Whatever the source, Scrapet has you covered.
+            </p>
+          </div>
+          <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1: Prompt Scrapping -->
+            <div class="feature-card rounded-2xl p-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500/20 text-purple-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V4a2 2 0 012-2h8z"
+                  />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">
+                Prompt Scrapping
+              </h3>
+              <p class="mt-4 text-gray-400">
+                Use natural language to find and analyze code. Simply ask, "Find
+                the auth logic from example.com," and let our AI do the rest.
+              </p>
+            </div>
+            <!-- Feature 2: URL Scraping -->
+            <div class="feature-card rounded-2xl p-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500/20 text-blue-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                  />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">
+                URL Scraping
+              </h3>
+              <p class="mt-4 text-gray-400">
+                Provide any URL—from a GitHub repository to a blog post—and
+                Scrapet will automatically extract and audit all relevant code
+                snippets.
+              </p>
+            </div>
+            <!-- Feature 3: AI Code Detection -->
+            <div class="feature-card rounded-2xl p-8">
+              <div
+                class="flex items-center justify-center h-12 w-12 rounded-lg bg-green-500/20 text-green-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">
+                AI Code Detection
+              </h3>
+              <p class="mt-4 text-gray-400">
+                Our core technology. Paste code directly to get an instant
+                analysis of its origin, with a confidence score and detailed
+                reasoning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="py-20 sm:py-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <h2
+              class="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+            >
+              Simple, Fast, and Insightful
+            </h2>
+            <p class="mt-4 text-lg text-gray-400">
+              Get from input to analysis in seconds.
+            </p>
+          </div>
+          <div
+            class="mt-16 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-8"
+          >
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-400">1</div>
+              <h3 class="mt-2 text-xl font-semibold text-white">
+                Input Your Source
+              </h3>
+              <p class="mt-2 text-gray-400">
+                Paste a URL, code, or a simple prompt.
+              </p>
+            </div>
+            <div class="text-gray-600 hidden md:block">&rarr;</div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-purple-400">2</div>
+              <h3 class="mt-2 text-xl font-semibold text-white">AI Analysis</h3>
+              <p class="mt-2 text-gray-400">
+                Our model scrapes and analyzes the code structure.
+              </p>
+            </div>
+            <div class="text-gray-600 hidden md:block">&rarr;</div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-green-400">3</div>
+              <h3 class="mt-2 text-xl font-semibold text-white">Get Results</h3>
+              <p class="mt-2 text-gray-400">
+                Receive a detailed report and confidence score.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t border-gray-800 py-8">
+        <div
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500"
+        >
+          <p>&copy; 2025 Scrapet. Built for the Hackverse 1.0 Hackathon.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const hamburgerIcon = mobileMenuButton.querySelector("svg:first-child");
+      const closeIcon = mobileMenuButton.querySelector("svg:last-child");
+
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        hamburgerIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      });
+    </script>
   </body>
 </html>

@@ -90,6 +90,7 @@ Mention only sites logically relevant to the prompt, don’t list generic URLs.`
           role: "user",
           content: userPrompt,
         },
+    
       ],
       temperature: 0.7,
       max_tokens: 600,
