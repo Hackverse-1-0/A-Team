@@ -4,11 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "concurrently \"npm run server\" \"vite\"",
+    "server": "node app.js"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
   }
 }
