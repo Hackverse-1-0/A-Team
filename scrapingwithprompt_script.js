@@ -1,5 +1,9 @@
-const { OpenAI } = require("openai");
-require("dotenv").config();
+
+// const { OpenAI } = require("openai");
+import { OpenAI } from "openai";
+import "dotenv/config";
+// require("dotenv").config();
+
 
 console.log("API Key Loaded:", process.env.API_KEY); // Debug only
 
@@ -103,16 +107,18 @@ Mention only sites logically relevant to the prompt, don’t list generic URLs.`
 }
 
 // TEMP: Hardcoded input for testing (no CLI args)
-if (require.main === module) {
-  const userPrompt = "best mobiles in 2025 to buy";
+// if (require.main === module) {
+//   const userPrompt = "best mobiles in 2025 to buy";
 
-  convertText_prompt(userPrompt)
-    .then((result) => {
-      console.log("Converted Text:\n", result);
-    })
-    .catch((err) => {
-      console.error("Error:", err.message);
-    });
-}
+//   convertText_prompt(userPrompt)
+//     .then((result) => {
+//       console.log("Converted Text:\n", result);
+//     })
+//     .catch((err) => {
+//       console.error("Error:", err.message);
+//     });
+// }
 
-module.exports = convertText_prompt;
+export default convertText_prompt;
+
+

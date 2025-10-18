@@ -1,6 +1,9 @@
-const puppeteer = require('puppeteer');
-// const { openAI } = require('openai');
-const { OpenAI } = require('openai');
+import puppeteer from "puppeteer";
+import { OpenAI } from "openai";
+import { fileURLToPath } from "url";
+import { basename } from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
 console.log("API Key Loaded:", process.env.API_KEY); // Debug only
 const openai = new OpenAI({
@@ -69,16 +72,18 @@ async function summarizeText(text) {
   }
 }
 
-if (require.main === module) {
+
+const currentFile = basename(fileURLToPath(import.meta.url));
+
+if (process.argv[1].endsWith(currentFile)) {
   const url = process.argv[2];
 
   scrapeWebsite(url)
     .then(data => {
-      console.log("Summarized text :\n", data);
+      console.log("Summarized text:\n", data);
     })
     .catch(err => {
       console.error("Error:", err.message);
     });
 }
-module.exports = scrapeWebsite;
 

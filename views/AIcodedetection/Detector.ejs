@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Plagiarism Checker</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AST Code Plagiarism Checker</h1>
+      <p>Checks your code against web sources for structural similarity.</p>
+    </header>
+
+    <main>
+      <form id="check-form">
+        <div class="code-container">
+          <textarea
+            id="suspect-code"
+            placeholder="Paste your code here to check for plagiarism..."
+          ></textarea>
+        </div>
+        <button type="submit" id="check-button">Check for Plagiarism</button>
+      </form>
+
+      <div id="results-container">
+        <h3>Sources:</h3>
+        <ul id="results-list"></ul>
+      </div>
+    </main>
+    <script src="/public/js/main.js"></script>
+  </body>
+</html>
+
+
+
+
