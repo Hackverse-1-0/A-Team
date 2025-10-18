@@ -2,7 +2,7 @@
   "name": "scrapet",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"vite\"",
     "server": "node app.js"
