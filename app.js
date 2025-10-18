@@ -4,8 +4,9 @@ import { title } from "process";
 import { fileURLToPath } from "url";
 import { compareCode } from "./code-comparator.js";
 import Groq from "groq-sdk";
-import convertText_prompt from './scrapingwithprompt_script.js';
+import convertText_prompt from "./scrapingwithprompt_script.js";
 import "dotenv/config";
+import scrapeUrl from "./scrapewords_puppeteer.js";
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY, // Put your key in your .env file
@@ -52,6 +53,23 @@ app.post("/scrapePrompt", async (req, res) => {
   } catch (error) {
     console.error("Error processing prompt:", error.message);
     res.status(500).json({ error: "Failed to process the prompt" });
+  }
+});
+app.post("/scrapeUrl", async (req, res) => {
+  // req.body will contain { targetUrl, searchDepth, isEcommerce }
+  console.log("Server: Received /scrapeUrl request for:", req.body.targetUrl);
+
+  if (!req.body.targetUrl) {
+    return res.status(400).json({ error: "URL is required" });
+  }
+
+  try {
+    // Pass the entire req.body object to the scraper
+    const output = await scrapeUrl(req.body);
+    res.json({ output }); // Send the results back
+  } catch (error) {
+    console.error("Error processing URL scrape:", error.message);
+    res.status(500).json({ error: "Failed to process the URL" });
   }
 });
 
