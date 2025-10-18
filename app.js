@@ -20,6 +20,9 @@ app.get("/", (req, res) => {
 app.get("/prompt", (re1, res) => {
   res.render("prompts/prompt", { title: "prompt page", user: "Cartikeya" });
 });
+app.get("/urlscrape", (re1, res) => {
+  res.render("Url_Scrap/urlScarping");
+});
 
 // Start the server
 app.listen(3000, () => {
