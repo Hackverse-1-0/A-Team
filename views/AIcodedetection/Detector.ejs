@@ -3,35 +3,322 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Code Plagiarism Checker</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <title>AI Code Detection - Scrapet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #111827; /* Tailwind gray-900 */
+        color: #f9fafb; /* Tailwind gray-50 */
+        background-image: radial-gradient(#4b5563 0.5px, transparent 0.5px);
+        background-size: 20px 20px;
+      }
+      .hero-gradient-text {
+        background: linear-gradient(
+          to right,
+          #60a5fa,
+          #a78bfa
+        ); /* blue-400 to violet-400 */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .feature-card {
+        background-color: rgba(31, 41, 55, 0.5); /* gray-800 with 50% opacity */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(75, 85, 99, 0.5); /* gray-700 with 50% opacity */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 0.75rem; /* rounded-lg */
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+          0 4px 6px -2px rgba(0, 0, 0, 0.15);
+      }
+    </style>
   </head>
-  <body>
-    <header>
-      <h1>AST Code Plagiarism Checker</h1>
-      <p>Checks your code against web sources for structural similarity.</p>
-    </header>
-
-    <main>
-      <form id="check-form">
-        <div class="code-container">
-          <textarea
-            id="suspect-code"
-            placeholder="Paste your code here to check for plagiarism..."
-          ></textarea>
+  <body class="antialiased">
+    <nav
+      class="sticky top-0 z-50 bg-gray-900/60 backdrop-blur-lg border-b border-gray-700/50"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-2xl font-bold text-white tracking-wider"
+              >SCRAPET</a
+            >
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a
+                href="/prompt"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >Prompt Scrapping</a
+              >
+              <a
+                href="/urlscrape"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >URL Scraping</a
+              >
+              <a
+                href="/detector"
+                class="bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                aria-current="page"
+                >AI Code Detection</a
+              >
+            </div>
+          </div>
+          <div class="-mr-2 flex md:hidden">
+            <button
+              id="mobile-menu-button"
+              type="button"
+              class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg
+                class="block h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                class="hidden h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <button type="submit" id="check-button">Check for Plagiarism</button>
-      </form>
-
-      <div id="results-container">
-        <h3>Sources:</h3>
-        <ul id="results-list"></ul>
       </div>
-    </main>
-    <script src="/public/js/main.js"></script>
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a
+            href="/prompt"
+            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            >Prompt Scrapping</a
+          >
+          <a
+            href="/urlscrape"
+            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            >URL Scraping</a
+          >
+          <a
+            href="/detector"
+            class="bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+            aria-current="page"
+            >AI Code Detection</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <header class="text-center mb-12">
+          <h1
+            class="text-4xl sm:text-5xl font-extrabold tracking-tight hero-gradient-text"
+          >
+            AI Code Plagiarism Checker
+          </h1>
+          <p class="mt-4 text-lg sm:text-xl text-gray-400">
+            Checks your code against web sources for structural similarity.
+          </p>
+        </header>
+
+        <main class="feature-card p-6 sm:p-8">
+          <form id="check-form" class="space-y-6">
+            <div>
+              <label
+                for="suspect-code"
+                class="block text-gray-300 font-medium mb-2"
+                >Suspect Code:</label
+              >
+              <textarea
+                id="suspect-code"
+                placeholder="Paste your code here to check for plagiarism..."
+                rows="15"
+                class="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-200 placeholder-gray-500 transition-all duration-200 font-mono text-sm"
+              ></textarea>
+            </div>
+
+            <div class="action-buttons pt-4">
+              <button
+                type="submit"
+                id="check-button"
+                class="w-full px-8 py-3 font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                Check for Plagiarism
+              </button>
+            </div>
+          </form>
+        </main>
+
+        <div
+          id="results-container"
+          class="feature-card mt-12 p-6 sm:p-8 rounded-lg"
+          style="display: none"
+        >
+          <h3 class="text-2xl font-semibold text-white mb-4">Sources:</h3>
+          <ul id="results-list" class="space-y-4"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="loadingIndicator"
+      class="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex flex-col items-center justify-center z-50"
+      style="display: none"
+    >
+      <video
+        id="loadingVideo"
+        autoplay
+        loop
+        muted
+        playsinline
+        class="w-48 h-48"
+      >
+        <source src="/assets/loading.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <p class="text-lg text-gray-300 font-medium mt-4">Analyzing code...</p>
+    </div>
+
+    <script
+      src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=67f2220a9e19e1e37a55ec03"
+      type="text/javascript"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. JS for mobile menu toggle (Existing) ---
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const hamburgerIcon = mobileMenuButton.querySelector("svg:first-child");
+        const closeIcon = mobileMenuButton.querySelector("svg:last-child");
+
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+            hamburgerIcon.classList.toggle("hidden");
+            closeIcon.classList.toggle("hidden");
+          });
+        }
+
+        // --- 2. [NEW] JS for Code Check Form ---
+
+        // Select the form elements
+        const checkForm = document.getElementById("check-form");
+        const codeTextarea = document.getElementById("suspect-code");
+        const loadingIndicator = document.getElementById("loadingIndicator");
+        const mainContent = document.querySelector(".main-content");
+        const resultsContainer = document.getElementById("results-container");
+        const resultsList = document.getElementById("results-list");
+
+        if (checkForm) {
+          // Listen for the form 'submit' event
+          checkForm.addEventListener("submit", async (event) => {
+            // Prevent the form from actually submitting (which reloads the page)
+            event.preventDefault();
+
+            // Get the code from the textarea
+            const suspectCode = codeTextarea.value.trim();
+
+            // Validation: Check if code is empty
+            if (!suspectCode) {
+              alert("Please paste some code into the text area first.");
+              codeTextarea.focus();
+              return;
+            }
+
+            // --- Show data in console (Your Request) ---
+            console.clear();
+            console.log("======= AI CODE CHECK REQUEST =======");
+            console.log("Code to analyze:", suspectCode);
+            console.log("=====================================");
+
+            // --- Show loading animation and blur ---
+            loadingIndicator.style.display = "flex";
+            mainContent.classList.add("blur-sm");
+            resultsContainer.style.display = "none"; // Hide old results
+            resultsList.innerHTML = ""; // Clear old results
+
+            // --- Send the data to your /check-ai-code backend ---
+            try {
+              const response = await fetch("/check-ai-code", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ suspectCode: suspectCode }), // Use the correct key
+              });
+
+              if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(
+                  errorData.error || `HTTP error! Status: ${response.status}`
+                );
+              }
+
+              const result = await response.json(); // { score: 80, reason: "..." }
+              console.log("Backend Response:", result);
+
+              // --- Display the results ---
+              const scoreColor =
+                result.score > 75
+                  ? "text-red-400"
+                  : result.score > 40
+                  ? "text-yellow-400"
+                  : "text-green-400";
+
+              const resultHTML = `
+                <li class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                  <p class="text-xl font-bold ${scoreColor}">AI Score: ${result.score}%</p>
+                  <p class="text-gray-300 mt-2"><strong>Reason:</strong> ${result.reason}</p>
+                </li>
+              `;
+              resultsList.innerHTML = resultHTML;
+              resultsContainer.style.display = "block"; // Show the results card
+            } catch (error) {
+              console.error("Error checking code:", error);
+              // Display error in the results box
+              resultsList.innerHTML = `<li class="text-red-400">${error.message}</li>`;
+              resultsContainer.style.display = "block";
+            } finally {
+              // --- Hide loading animation ---
+              loadingIndicator.style.display = "none";
+              mainContent.classList.remove("blur-sm");
+            }
+          });
+        }
+      });
+    </script>
   </body>
 </html>
-
-
-
-

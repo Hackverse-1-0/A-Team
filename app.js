@@ -9,7 +9,7 @@ import "dotenv/config";
 import scrapeUrl from "./scrapewords_puppeteer.js";
 
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // Put your key in your .env file
+  apiKey: process.env.API_KEY, // Put your key in your .env file
 });
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -161,7 +161,10 @@ app.post("/check-ai-code", async (req, res) => {
           content: prompt,
         },
       ],
-      model: "llama3-8b-8192", // Use a fast and smart model
+      // model: "llama3-8b-8192", // Use a fast and smart model
+      // model: "llama-3.1-8b-instant",
+      model:"openai/gpt-oss-20b",
+
       temperature: 0.2,
       response_format: { type: "json_object" }, // Force JSON output!
     });

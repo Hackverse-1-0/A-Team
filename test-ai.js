@@ -23,7 +23,7 @@ async function fetchData(url) {
     
     // Return the parsed data
     return data;
-  } catch (error) {
+  } catch (err){
     // Log any errors to the console
     console.error('Fetch error:', error);
     return null;
